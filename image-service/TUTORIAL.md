@@ -1,10 +1,10 @@
-# 📚 Step-by-Step Tutorial: How Everything Works
+# Step-by-Step Tutorial: How Everything Works
 
 Let me walk you through **exactly** what happens in this image service.
 
 ---
 
-## 🎬 The Setup Phase (One Time)
+## The Setup Phase (One Time)
 
 ### Step 1: Starting LocalStack
 
@@ -95,7 +95,7 @@ python local_api_server.py
 
 ---
 
-## 📸 Upload Flow (Step-by-Step)
+## Upload Flow (Step-by-Step)
 
 Let's upload an image:
 
@@ -249,7 +249,7 @@ s3_url = s3_client.upload_image(
    - Stores the file in memory (or disk)
    - Returns success
 
-**Result:** Photo is now in S3! 🎉
+**Result:** Photo is now in S3.
 
 ---
 
@@ -292,7 +292,7 @@ db_client.save_metadata(
    - Adds row to the table
    - Returns success
 
-**Result:** Photo info is now in DynamoDB! 📝
+**Result:** Photo info is now in DynamoDB.
 
 ---
 
@@ -315,7 +315,7 @@ return {
 
 ---
 
-## 📋 List Flow (Step-by-Step)
+## List Flow (Step-by-Step)
 
 ```bash
 curl 'http://localhost:8000/images?user_id=alice'
@@ -384,7 +384,7 @@ return {
 
 ---
 
-## 👁️ View Flow (Step-by-Step)
+## View Flow (Step-by-Step)
 
 ```bash
 curl 'http://localhost:8000/images/abc-123-def-456'
@@ -449,7 +449,7 @@ return {
 
 ---
 
-## 🗑️ Delete Flow (Step-by-Step)
+## Delete Flow (Step-by-Step)
 
 ```bash
 curl -X DELETE 'http://localhost:8000/images/abc-123-def-456' \
@@ -514,7 +514,7 @@ return {
 
 ---
 
-## 🔄 Complete Flow Diagram
+## Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -566,7 +566,7 @@ return {
 
 ---
 
-## 🎯 Key Concepts Explained
+## Key Concepts Explained
 
 ### 1. **Why Base64 Encoding?**
 
@@ -629,7 +629,7 @@ images = [img for img in images if img.get('user_id') == 'alice']
 
 ---
 
-## 🧪 Try It Yourself
+## Try It Yourself
 
 ### Experiment 1: See the Data
 
@@ -661,12 +661,12 @@ Restart server and watch the logs!
 
 ---
 
-## 📚 Summary
+## Summary
 
 **Upload:** Client → Server → Lambda → S3 + DynamoDB → Response
 **List:** Client → Server → Lambda → DynamoDB (filter) → Response
 **View:** Client → Server → Lambda → DynamoDB (get key) → S3 (get file) → Response
 **Delete:** Client → Server → Lambda → Check ownership → S3 (delete) + DynamoDB (delete) → Response
 
-**That's it!** Every request follows this pattern. 🎉
+**That's it!** Every request follows this pattern.
 

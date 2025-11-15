@@ -163,17 +163,17 @@ def main():
     """Start the HTTP server."""
     port = 8000
     server = HTTPServer(('localhost', port), APIHandler)
-    print(f"🚀 Local API Server running on http://localhost:{port}")
-    print(f"   Endpoints:")
-    print(f"   - POST   /images/upload")
-    print(f"   - GET    /images")
-    print(f"   - GET    /images/{{image_id}}")
-    print(f"   - DELETE /images/{{image_id}}")
-    print(f"\n   Press Ctrl+C to stop")
+    print(f"Local API Server running on http://localhost:{port}")
+    print(f"Endpoints:")
+    print(f"  - POST   /images/upload")
+    print(f"  - GET    /images")
+    print(f"  - GET    /images/{{image_id}}")
+    print(f"  - DELETE /images/{{image_id}}")
+    print(f"\nPress Ctrl+C to stop")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\n\n👋 Server stopped")
+        print("\n\nServer stopped")
         server.shutdown()
 
 

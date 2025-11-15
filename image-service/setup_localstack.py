@@ -33,12 +33,12 @@ def create_s3_bucket():
     
     try:
         s3.create_bucket(Bucket=bucket_name)
-        print(f"✓ Created S3 bucket: {bucket_name}")
+        print(f"Created S3 bucket: {bucket_name}")
     except Exception as e:
         if 'BucketAlreadyExists' in str(e) or 'BucketAlreadyOwnedByYou' in str(e):
-            print(f"✓ S3 bucket already exists: {bucket_name}")
+            print(f"S3 bucket already exists: {bucket_name}")
         else:
-            print(f"✗ Error: {e}")
+            print(f"Error creating bucket: {e}")
             raise
 
 def create_dynamodb_table():
@@ -66,39 +66,39 @@ def create_dynamodb_table():
         )
         
         # Wait for table to be ready
-        print("⏳ Waiting for table to be ready...")
+        print("Waiting for table to be ready...")
         waiter = dynamodb.get_waiter('table_exists')
         waiter.wait(TableName=table_name)
-        print(f"✓ Created DynamoDB table: {table_name}")
+        print(f"Created DynamoDB table: {table_name}")
         
     except Exception as e:
         if 'ResourceInUseException' in str(e):
-            print(f"✓ DynamoDB table already exists: {table_name}")
+            print(f"DynamoDB table already exists: {table_name}")
         else:
-            print(f"✗ Error: {e}")
+            print(f"Error creating table: {e}")
             raise
 
 def main():
     """Main function - sets up everything."""
-    print("🚀 Setting up LocalStack...")
-    print(f"   Endpoint: {ENDPOINT}\n")
+    print("Setting up LocalStack...")
+    print(f"Endpoint: {ENDPOINT}\n")
     
     # Check if LocalStack is running
     if not check_localstack():
-        print("❌ LocalStack is not running!")
-        print("   Start it with: docker-compose up -d")
-        print("   Then wait 10 seconds and run this script again.")
+        print("Error: LocalStack is not running")
+        print("Start it with: docker-compose up -d")
+        print("Then wait 10 seconds and run this script again.")
         return 1
     
-    print("✓ LocalStack is running\n")
+    print("LocalStack is running\n")
     
     try:
         create_s3_bucket()
         create_dynamodb_table()
-        print("\n✅ Setup complete!")
-        print("\nYou can now upload images!")
+        print("\nSetup complete!")
+        print("You can now upload images.")
     except Exception as e:
-        print(f"\n❌ Setup failed: {e}")
+        print(f"\nSetup failed: {e}")
         print("\nMake sure:")
         print("  1. LocalStack is running: docker-compose up -d")
         print("  2. boto3 is installed: pip install boto3")
