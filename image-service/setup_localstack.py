@@ -1,8 +1,5 @@
 """Simple script to set up LocalStack - Creates S3 bucket and DynamoDB table."""
 import boto3
-import os
-import sys
-import time
 
 # LocalStack settings
 ENDPOINT = 'http://localhost:4566'
