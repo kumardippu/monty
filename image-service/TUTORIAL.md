@@ -71,12 +71,12 @@ python local_api_server.py
 
 **What happens:**
 
-1. **Server starts listening:**
+1. **FastAPI app is created:**
    ```python
-   server = HTTPServer(('localhost', 8000), APIHandler)
+   app = FastAPI(title="Image Service API", version="1.0.0")
    ```
-   - Opens port 8000
-   - Waits for HTTP requests
+   - Creates a FastAPI application
+   - Enables automatic API documentation
 
 2. **Sets up environment:**
    ```python
@@ -91,7 +91,18 @@ python local_api_server.py
    ```
    - Loads all 4 Lambda functions
 
+4. **Starts uvicorn server:**
+   ```python
+   uvicorn.run(app, host="localhost", port=8000)
+   ```
+   - Opens port 8000
+   - Serves FastAPI application
+
 **Result:** Server running on `http://localhost:8000` ready to receive requests!
+
+**Bonus - Interactive Documentation:**
+- **Swagger UI:** `http://localhost:8000/docs` - Test APIs interactively
+- **ReDoc:** `http://localhost:8000/redoc` - Beautiful read-only docs
 
 ---
 
@@ -111,24 +122,24 @@ curl --location 'http://localhost:8000/images/upload' \
 #### **Step 1: Request Arrives at Server** (`local_api_server.py`)
 
 ```python
-def do_POST(self):
-    parsed = urlparse(self.path)  # Parse URL
-    path = parsed.path            # Get: "/images/upload"
+@app.post("/images/upload")
+async def upload_image(request: Request, x_user_id: Optional[str] = Header(None)):
+    # FastAPI automatically routes POST /images/upload here
 ```
 
-**Decision made:** "This is POST to `/images/upload`, call `upload_handler`"
+**Decision made:** FastAPI routes POST to `/images/upload` to the `upload_image` function
 
 ---
 
 #### **Step 2: Server Reads the Image Data**
 
 ```python
-content_length = int(self.headers.get('Content-Length', 0))
-body = self.rfile.read(content_length)
+body = await request.body()
+content_type = request.headers.get('content-type', 'image/jpeg')
 ```
 
 **What this does:**
-- Reads the entire photo file into memory
+- FastAPI reads the entire photo file into memory
 - `body` now contains the raw image bytes
 
 ---

@@ -42,7 +42,7 @@ image-service/
 │       └── dynamodb_client.py # DynamoDB operations
 ├── tests/
 │   └── test_handlers.py       # Unit tests
-├── local_api_server.py        # Local API server for testing
+├── local_api_server.py        # FastAPI server for local testing
 ├── setup_localstack.py        # LocalStack setup script
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This file
@@ -88,9 +88,20 @@ python local_api_server.py
 
 Server will start on `http://localhost:8000`
 
+**Interactive API Documentation:**
+- **Swagger UI:** `http://localhost:8000/docs` - Interactive testing interface
+- **ReDoc:** `http://localhost:8000/redoc` - Clean, readable documentation
+- Test all endpoints directly from your browser
+
 ---
 
 ## API Documentation
+
+**Note:** Interactive documentation available at:
+- **Swagger UI:** `http://localhost:8000/docs` - Test endpoints with a UI
+- **ReDoc:** `http://localhost:8000/redoc` - Read-only documentation
+
+---
 
 ### 1. Upload Image
 
@@ -261,6 +272,7 @@ pytest tests/ --cov=src --cov-report=html
 - **AWS DynamoDB**: NoSQL database
 - **AWS API Gateway**: REST API (simulated locally)
 - **LocalStack**: Local AWS cloud stack
+- **FastAPI**: Local development server with interactive docs
 - **pytest**: Testing framework
 
 ---
